@@ -1,85 +1,561 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>机器学习</title>
-    <description>Java老鸟的python机器学习之路</description>
-    <link>http://allamtb.github.io/machine/</link>
-    <atom:link href="http://allamtb.github.io/machine/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 18 Dec 2015 23:39:41 +0800</pubDate>
-    <lastBuildDate>Fri, 18 Dec 2015 23:39:41 +0800</lastBuildDate>
+    <title>红林的机器学习</title>
+    <description>红林的机器学习/深度学习/强化学习</description>
+    <link>https://allamtb.github.io/blog//</link>
+    <atom:link href="https://allamtb.github.io/blog//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 06 May 2017 21:47:22 +0800</pubDate>
+    <lastBuildDate>Sat, 06 May 2017 21:47:22 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>我的第一篇博文</title>
-        <description>&lt;h2 id=&quot;缘起&quot;&gt;缘起&lt;/h2&gt;
+        <title>一步步完成手写识别</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;准备数据&lt;/h1&gt;
+&lt;p&gt;在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。
+供后续识别模型取用。&lt;/p&gt;
 
+&lt;h1 id=&quot;python&quot;&gt;对比python机器学习库，选用框架&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;为什么用python？
+&amp;gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 &lt;a href=&quot;https://docs.python.org/2/library/index.html&quot;&gt;python&lt;/a&gt;（keep this under your pillow)提供了免费的&lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/matplotlib_intro.html&quot;&gt;matplotlib&lt;/a&gt; &lt;a href=&quot;http://matplotlib.org/&quot;&gt;官网&lt;/a&gt;。
+&amp;gt;- python 是解释性语言。无需编译，机器在执行前再解释。方便快速阅读源码、编写代码，并在控制台直接运行。
+&amp;gt;- 语法优美、可读性高、列表推导,模块化编程、开发迅速。
+&amp;gt;- 丰富的机器学习生态圈 &lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/numpy_intro.html&quot;&gt;numpy&lt;/a&gt; &lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/scipy_intro.html&quot;&gt;Scipy&lt;/a&gt;等。
+&amp;gt;- cython python的C语言扩展。用于加速python某些算法的速度。
+&amp;gt;- 求2的23次方？ python 2**23 即可，非常简洁。java 需要 调用Math.pow()&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;机器学习选用什么？
+&amp;gt; scikit-learn  目前python最火的工具包。有525位贡献者，2W多次提交。 &lt;a href=&quot;http://scikit-learn.org/stable/&quot;&gt;scikit-learn&lt;/a&gt;
+包括了各类无监督、监督学习算法。
+适合用于实践机器学习。&lt;/li&gt;
+  &lt;li&gt;深度学习选用什么？
+&amp;gt; keras 已封装好各种模型，上手容易。&lt;a href=&quot;http://keras.io/&quot;&gt;keras&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;符号运算选用什么？
+&amp;gt; &lt;a href=&quot;http://deeplearning.net/software/theano/tutorial/index.html#tutorial&quot;&gt;Theano&lt;/a&gt; 基于numpy 和scipy ，提供了先写公式，再传值的API。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;knn&quot;&gt;使用KNN来识别&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;KNN 即 K-NearNeburher 的缩写，中文名为 K近邻算法。KNN算法是最简单、通俗的算法。也是不需要提前建模、训练的机器学习算法，
+有点临时抱佛脚的意思。
+KNN分类的原理为： 将所有已知的Samples(数据带标签)线性化，通过一一对比测试数据（有数据无标签）与各个Samples的距离（欧式距离、余弦距离）
+  得到K个最相似的Samples。最后在这K个Samples中以标签占比最多的为结果标签。
+在机器学习实践一书中，K的值小于20为最佳实践。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;准备数据&lt;/p&gt;
+
+    &lt;p&gt;将生成好的MNIST测试数据得到训练数据集、训练数据标签、测试数据集、测试数据标签。
+可以看到训练数据我们取的是9000个，测试数据我们取的是100个。&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```python
+#打开mnist手写字符集。
+f = gzip.open(&#39;mnist.pkl.gz&#39;, &#39;rb&#39;)
+training_data, validation_data, test_data = cPickle.load(f)
+f.close()
+#获得训练数据
+data = training_data[0][0:9000]
+#获得训练结果
+training_result = training_data[1][0:9000]
+#获得用于测试的数据
+test = test_data[0][0:100]
+#获得用于测试的数据结果
+test_result = test_data[1][0:100]
+ ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;训练模型&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ```python
+     n_neighbors = 5
+     knn = neighbors.KNeighborsClassifier(n_neighbors, weights=&#39;distance&#39;)
+     #训练
+     fit = knn.fit(data, training_result)
+  ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用测试数据来判断正确率&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ```python
+  for x,y in zip(y_,test_result):
+      if(x!=y):
+          count+=1
+  print &quot;{0}/{1}&quot;.format(count,len(y_))
+  ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;nn&quot;&gt;使用NN来识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;使用卷积神经网络识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;svm&quot;&gt;使用SVM识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;pcasvd&quot;&gt;使用PCA以及SVD算法来优化数据/提升效率。&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;总结&lt;/h1&gt;
+
+</description>
+        <pubDate>Thu, 07 Jan 2016 00:00:00 +0800</pubDate>
+        <link>https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html</link>
+        <guid isPermaLink="true">https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html</guid>
+        
+        <category>手写识别</category>
+        
+        
+        <category>机器学习</category>
+        
+      </item>
+    
+      <item>
+        <title>python学习</title>
+        <description>&lt;p&gt;机器学习这么火热，python成了一门热门语言。同时，一般linux都内置了python 以及树莓派的兴起。python学习势在必行。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;方法&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;与java 横向比较。&lt;/li&gt;
+  &lt;li&gt;以官网文档&lt;a href=&quot;https://docs.python.org/2/library/index.html&quot;&gt;python&lt;/a&gt;为基础，列出常用的重点。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;基础&lt;/h1&gt;
+
+&lt;h2 id=&quot;python&quot;&gt;python中的符号计算&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;number/String/list 都可以用 + 号做计算&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python
+      print 2+2
+      print &#39;str&#39;+&#39;str&#39;
+      print &#39;str\&#39;good&#39;
+      listA = [1,2,3]
+      listB = [3,4,5]
+      print listA+listB
+ &lt;/code&gt;
+  在java中，数字和String也是支持+号运算的。但是JAVA中列表不支持+号运算。
+  python中还支持符号化的平方计算如 &lt;code class=&quot;highlighter-rouge&quot;&gt;2**3&lt;/code&gt; 来表示2的三次方，这在java中需要用math.pow()方法了。
+  如果要拼接两个列表，在JAVA中应该使用
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;java
+  listA.appendAll(listB)
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;python中String也支持 * 号，表示连续的多个。如&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python
+  print 3 * &#39;un&#39; + &#39;ium&#39;
+  #结果为unununium
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;python支持String以及list的&lt;code class=&quot;highlighter-rouge&quot;&gt;符号化切片&lt;/code&gt;操作&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python
+  str =&#39;this is tring&#39;
+  #返回h
+  str[1:2]
+  #支持省略操作。省略第一个坐标，默认表示0 ；省略第二个坐标，默认表示最大长度。
+  #在这里Str[:2]等同于Str[0:2]
+  Str[:2]
+  #列表也支持切片
+  list =[1,2,3,4]
+  list[1,3]
+   #结果为2,3
+ &lt;/code&gt;
+  在切片的坐标中，0表示开头,-1表示末尾。 -2 表示倒数第二个。
+  切片的坐标有个口诀，&lt;code class=&quot;highlighter-rouge&quot;&gt;前关后开&lt;/code&gt;。比如[1,3]这样的坐标，会从1开始取，取到3的前一位。&lt;/p&gt;
+
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;python-1&quot;&gt;python中包的引用方式&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;推荐使用 from A.B import C  或 import A&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;不推荐使用 import * from A
+&amp;gt; 因为：由于效率原因，python 并不会在文件系统一一加载A包下面所有的子包。
+python 约定了import*找包的方式，必须要A包下面的init.py存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;__all__&lt;/code&gt;列表来定义被引用的子包。
+如果__all__列表不是最新的，那么很可能无法引用到需要的包。&lt;/li&gt;
+  &lt;li&gt;python 支持相对路径来引用。&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 25 Dec 2015 00:00:00 +0800</pubDate>
+        <link>https://allamtb.github.io/blog//%E8%AF%AD%E8%A8%80/2015/12/25/python%E5%AD%A6%E4%B9%A0.html</link>
+        <guid isPermaLink="true">https://allamtb.github.io/blog//%E8%AF%AD%E8%A8%80/2015/12/25/python%E5%AD%A6%E4%B9%A0.html</guid>
+        
+        <category>python</category>
+        
+        <category>基础</category>
+        
+        
+        <category>语言</category>
+        
+      </item>
+    
+      <item>
+        <title>一步步完成手写识别</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;准备数据&lt;/h1&gt;
+&lt;p&gt;在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。
+供后续识别模型取用。&lt;/p&gt;
+
+&lt;h1 id=&quot;python&quot;&gt;对比python机器学习库，选用框架&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;为什么用python？
+&amp;gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 &lt;a href=&quot;https://docs.python.org/2/library/index.html&quot;&gt;python&lt;/a&gt;（keep this under your pillow)提供了免费的&lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/matplotlib_intro.html&quot;&gt;matplotlib&lt;/a&gt; &lt;a href=&quot;http://matplotlib.org/&quot;&gt;官网&lt;/a&gt;。
+&amp;gt;- python 是解释性语言。无需编译，机器在执行前再解释。方便快速阅读源码、编写代码，并在控制台直接运行。
+&amp;gt;- 语法优美、可读性高、列表推导,模块化编程、开发迅速。
+&amp;gt;- 丰富的机器学习生态圈 &lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/numpy_intro.html&quot;&gt;numpy&lt;/a&gt; &lt;a href=&quot;http://old.sebug.net/paper/books/scipydoc/scipy_intro.html&quot;&gt;Scipy&lt;/a&gt;等。
+&amp;gt;- cython python的C语言扩展。用于加速python某些算法的速度。
+&amp;gt;- 求2的23次方？ python 2**23 即可，非常简洁。java 需要 调用Math.pow()&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;机器学习选用什么？
+&amp;gt; scikit-learn  目前python最火的工具包。有525位贡献者，2W多次提交。 &lt;a href=&quot;http://scikit-learn.org/stable/&quot;&gt;scikit-learn&lt;/a&gt;
+包括了各类无监督、监督学习算法。
+适合用于实践机器学习。&lt;/li&gt;
+  &lt;li&gt;深度学习选用什么？
+&amp;gt; keras 已封装好各种模型，上手容易。&lt;a href=&quot;http://keras.io/&quot;&gt;keras&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;符号运算选用什么？
+&amp;gt; &lt;a href=&quot;http://deeplearning.net/software/theano/tutorial/index.html#tutorial&quot;&gt;Theano&lt;/a&gt; 基于numpy 和scipy ，提供了先写公式，再传值的API。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;knn&quot;&gt;使用KNN来识别&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;KNN 即 K-NearNeburher 的缩写，中文名为 K近邻算法。KNN算法是最简单、通俗的算法。也是不需要提前建模、训练的机器学习算法，
+有点临时抱佛脚的意思。
+KNN分类的原理为： 将所有已知的Samples(数据带标签)线性化，通过一一对比测试数据（有数据无标签）与各个Samples的距离（欧式距离、余弦距离）
+  得到K个最相似的Samples。最后在这K个Samples中以标签占比最多的为结果标签。
+在机器学习实践一书中，K的值小于20为最佳实践。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;准备数据&lt;/p&gt;
+
+    &lt;p&gt;将生成好的MNIST测试数据得到训练数据集、训练数据标签、测试数据集、测试数据标签。
+可以看到训练数据我们取的是9000个，测试数据我们取的是100个。&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```python
+#打开mnist手写字符集。
+f = gzip.open(&#39;mnist.pkl.gz&#39;, &#39;rb&#39;)
+training_data, validation_data, test_data = cPickle.load(f)
+f.close()
+#获得训练数据
+data = training_data[0][0:9000]
+#获得训练结果
+training_result = training_data[1][0:9000]
+#获得用于测试的数据
+test = test_data[0][0:100]
+#获得用于测试的数据结果
+test_result = test_data[1][0:100]
+ ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;训练模型&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ```python
+     n_neighbors = 5
+     knn = neighbors.KNeighborsClassifier(n_neighbors, weights=&#39;distance&#39;)
+     #训练
+     fit = knn.fit(data, training_result)
+  ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用测试数据来判断正确率&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ```python
+  for x,y in zip(y_,test_result):
+      if(x!=y):
+          count+=1
+  print &quot;{0}/{1}&quot;.format(count,len(y_))
+  ```
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;nn&quot;&gt;使用NN来识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;使用卷积神经网络识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;svm&quot;&gt;使用SVM识别&lt;/h1&gt;
+
+&lt;h1 id=&quot;pcasvd&quot;&gt;使用PCA以及SVD算法来优化数据/提升效率。&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;总结&lt;/h1&gt;
+</description>
+        <pubDate>Sun, 20 Dec 2015 00:00:00 +0800</pubDate>
+        <link>https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2015/12/20/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html</link>
+        <guid isPermaLink="true">https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2015/12/20/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html</guid>
+        
+        <category>手写识别</category>
+        
+        
+        <category>机器学习</category>
+        
+      </item>
+    
+      <item>
+        <title>gitHub 搭建博客小结</title>
+        <description>&lt;p&gt;花了两天时间，采用ghpages搭建博客完成，
+ 下面记录下搭建过程。&lt;/p&gt;
+
+&lt;h1 id=&quot;github-pages&quot;&gt;github pages&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;github pages 由github官网出品。方便广大程序员挂载博客而生。其内嵌了 Jekyll 模板引擎，可以将使用者提交的md文件自动生成为html并按照规范生成tag/目录等，使用者只需要关注博客内容，无需关注样式等。
+github pages 的文章托管于github。基于项目的远程仓库名为gh-pages，即用户可以为每个项目masterd对应建一个gh-pages分支。我们的博客就采用gh-pages方式。
+另外一种方式基于用户主页的mater。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;git&quot;&gt;git命令&lt;/h1&gt;
+
+&lt;h2 id=&quot;git-1&quot;&gt;常用git命令:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;git add .&lt;/li&gt;
+  &lt;li&gt;git commit -am ‘注释内容’&lt;/li&gt;
+  &lt;li&gt;git push origin gh-pages&lt;/li&gt;
+  &lt;li&gt;git clone&lt;/li&gt;
+  &lt;li&gt;git status&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;git-2&quot;&gt;git配置&lt;/h2&gt;
+
+&lt;p&gt;git 配置文件的存放，由近到远依次为（&lt;code class=&quot;highlighter-rouge&quot;&gt;相同配置，近者生效&lt;/code&gt;）: &lt;br /&gt;
+- 当前git仓库中.git的config文件 里面存放origin 对应的远**程仓库地址。
+- 当前用户home根目录的.gitconfig 文件 里面存放用户信息 email /name/提交方式等。你可以通过传递–global 选项使Git 读或写这个特定的文件。
+- /etc/gitconfig下面， 如果你传递参数选项’–system’ 给 git config，它将明确的读和写这个文件。&lt;/p&gt;
+
+&lt;h2 id=&quot;git-3&quot;&gt;git远程链接&lt;/h2&gt;
+
+&lt;p&gt;git远程链接方式有两种: https 以及 ssh 方式&lt;/p&gt;
+
+&lt;p&gt;通过https方式push的时候，每次都需输入帐号、密码。 故建议将git 配置为ssh方式。
+可通过ssh的方式登录。具体为：&lt;/p&gt;
+
+&lt;p&gt;1、在本地通过ssh-keygen -t rsa 生成SSH 密钥&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ghpages/ssh.png&quot; alt=&quot;ssh&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2、将密钥在配置在github的账户配置中。&lt;br /&gt;
+3、 修改git remote set-url origin ssh地址。&lt;/p&gt;
+
+&lt;p&gt;参见URL  &lt;a href=&quot;blog.csdn.net/wfdtxz/article/details/8678982&quot;&gt;git之ssh密钥&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;扩展: ssh 密钥方式 dsa&lt;/td&gt;
+      &lt;td&gt;ecdsa&lt;/td&gt;
+      &lt;td&gt;ed25519&lt;/td&gt;
+      &lt;td&gt;rsa&lt;/td&gt;
+      &lt;td&gt;rsa1 的异同。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;jekyll&quot;&gt;jekyll&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;命令jekyll server默认端口为 4000&lt;/li&gt;
+  &lt;li&gt;yaml 头信息&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;yaml&quot;&gt;```yaml&lt;/h2&gt;
+&lt;p&gt;layout : post
+title : gitHub 搭建博客小结
+tags : ghpages markdown jekyll
+categories : 其他
+—&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h1 id=&quot;markdown&quot;&gt;markdown&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用 ‘ ‘  高亮&lt;/li&gt;
+  &lt;li&gt;换行 空格+空格+回车&lt;/li&gt;
+  &lt;li&gt;缩进&lt;/li&gt;
+  &lt;li&gt;嵌套列表，都使用-作为标记。子列表需要TAP来缩进。&lt;/li&gt;
+  &lt;li&gt;列表中若包括引用，列表需要使用 空格+空格+回车 来‘硬换行’并且引用需要缩进。&lt;/li&gt;
+  &lt;li&gt;代码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+```java
+                     		System.out.print(&#39;&quot;代码&#39;);
+```
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;图片
+定义图片：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     [ssh]: /{/{&quot;/ghpages/ssh.png&quot; | prepend: site.imgrepo /}/} 
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;使用图片：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![ssh][ssh]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 19 Dec 2015 00:00:00 +0800</pubDate>
+        <link>https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html</link>
+        <guid isPermaLink="true">https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html</guid>
+        
+        <category>ghpages</category>
+        
+        <category>markdown</category>
+        
+        <category>jekyll</category>
+        
+        
+        <category>其他</category>
+        
+      </item>
+    
+      <item>
+        <title>我的第一篇博文</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;缘起&lt;/h2&gt;
 &lt;p&gt;断断续续的学习机器学习也已经一年半了。了解了Neural Network 以及购买了《Machine  Learning in Action》&lt;/p&gt;
 
-&lt;h2 id=&quot;目标&quot;&gt;目标&lt;/h2&gt;
-
+&lt;h2 id=&quot;section-1&quot;&gt;目标&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;将算法应用到实践中去，即&lt;code class=&quot;prettyprint&quot;&gt;学以致用&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;麻衣神相与机器学习&lt;/li&gt;
-&lt;li&gt;挖掘网络资源整合与机器学习&lt;/li&gt;
-&lt;li&gt;航班计划应用&lt;/li&gt;
+  &lt;li&gt;将算法应用到实践中去，即&lt;code class=&quot;highlighter-rouge&quot;&gt;学以致用&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;麻衣神相与机器学习&lt;/li&gt;
+  &lt;li&gt;挖掘网络资源整合与机器学习&lt;/li&gt;
+  &lt;li&gt;航班计划应用&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;不足&quot;&gt;不足&lt;/h2&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;不足&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;数学基础差，新知识遗忘频率快。
-&amp;gt;  网易公开课的高数，线性代数有针对性的学习。常用的理论、名词、公式等&lt;code class=&quot;prettyprint&quot;&gt;隔三差五回顾&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;时间不够用。
-&amp;gt; 谁的时间都不够用。童年时，时间不够游戏；年轻时时间不够旅游；  只要做好计划，&lt;code class=&quot;prettyprint&quot;&gt;步步为营&lt;/code&gt;（今天完成的事项是为了明天做参考和准备）
-终究能达到目标。&lt;/li&gt;
-&lt;li&gt;新技术日新月异，眼花缭乱  。没有静下心来潜心研究核心技术。
-&amp;gt; 应该有两条线： &lt;strong&gt;核心技术的深度挖掘 . 新技术的水平研究。就像人的左右手，缺一不可。&lt;/strong&gt;
-&amp;gt; 在JAVA领域, JDK/Spring/大数据是核心技术
-&amp;gt; 在机器学习领域，&lt;strong&gt;10大机器学习算法&lt;/strong&gt;+神经网络是核心。
-&amp;gt; 掌握了核心后，就应该横向的比较各个新技术的优缺点了。&lt;/li&gt;
-&lt;li&gt;学了就完了，没有真切到用在实践中。
-&amp;gt; 扪心自问，自己是想做学术研究还是生产实践？
-&amp;gt;回答必然是生产。
-&amp;gt;在机器学习领域，各种好的思想/理论，几十年前先辈们已经孜孜不倦研究出来并一直优化中了。
-&amp;gt;拿BP反向算法来讲，在1978年就已经提出来了。PCA、SVD等算法早在100年前已经提出并有了详细的实现逻辑。
-&amp;gt;各种算法/思想/改进层出不穷，自己没时间/精力去做一一学术研究。
-&amp;gt;故：&lt;strong&gt;不要受到某一算法的羁绊&lt;/strong&gt;，在某个局部耗费大量的时间。而应该的是，&lt;code class=&quot;prettyprint&quot;&gt;站在巨人们的肩膀上，横向比较、实践进而改进&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;数学基础差，新知识遗忘频率快。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;网易公开课的高数，线性代数有针对性的学习。常用的理论、名词、公式等&lt;code class=&quot;highlighter-rouge&quot;&gt;隔三差五回顾&lt;/code&gt;。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;时间不够用。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;谁的时间都不够用。童年时，时间不够游戏；年轻时时间不够旅游；  只要做好计划，&lt;code class=&quot;highlighter-rouge&quot;&gt;步步为营&lt;/code&gt;（今天完成的事项是为了明天做参考和准备）
+终究能达到目标。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;新技术日新月异，眼花缭乱  。没有静下心来潜心研究核心技术。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;应该有两条线： &lt;strong&gt;核心技术的深度挖掘 . 新技术的水平研究。就像人的左右手，缺一不可。&lt;/strong&gt;
+在JAVA领域, JDK/Spring/大数据是核心技术
+在机器学习领域，&lt;strong&gt;10大机器学习算法&lt;/strong&gt;+神经网络是核心。
+掌握了核心后，就应该横向的比较各个新技术的优缺点了。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;学了就完了，没有真切到用在实践中。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;扪心自问，自己是想做学术研究还是生产实践？
+回答必然是生产。
+在机器学习领域，各种好的思想/理论，几十年前先辈们已经孜孜不倦研究出来并一直优化中了。
+拿BP反向算法来讲，在1978年就已经提出来了。PCA、SVD等算法早在100年前已经提出并有了详细的实现逻辑。
+各种算法/思想/改进层出不穷，自己没时间/精力去做一一学术研究。
+故：&lt;strong&gt;不要受到某一算法的羁绊&lt;/strong&gt;，在某个局部耗费大量的时间。而应该的是，&lt;code class=&quot;highlighter-rouge&quot;&gt;站在巨人们的肩膀上，横向比较、实践进而改进&lt;/code&gt;。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;策略&quot;&gt;策略&lt;/h2&gt;
-
+&lt;h2 id=&quot;section-3&quot;&gt;策略&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;收复失地
-&amp;gt;  将自己一年半载以来学习做个终结，回顾，加深印象。&lt;/li&gt;
-&lt;li&gt;步步为营
-&amp;gt; 做好计划; 围绕最终目标行事。今天完成的事项是为了明天做参考和准备，这周做的事情是为了下周事项更好的推进。&lt;/li&gt;
-&lt;li&gt;前瞻思考
-&amp;gt; 多关注`最新动态  技术/公司/趋势&lt;/li&gt;
-&lt;li&gt;横向对比
-&amp;gt; 站在巨人们的肩膀上，横向比较、实践进而改进&lt;/li&gt;
-&lt;li&gt;实践为主
-&amp;gt;  做生产而非做学究。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;收复失地&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;将自己一年半载以来学习做个终结，回顾，加深印象。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;步步为营&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;做好计划; 围绕最终目标行事。今天完成的事项是为了明天做参考和准备，这周做的事情是为了下周事项更好的推进。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;前瞻思考&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;多关注`最新动态  技术/公司/趋势&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;横向对比&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;站在巨人们的肩膀上，横向比较、实践进而改进&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;实践为主&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;做生产而非做学究。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;各阶段计划&quot;&gt;各阶段计划&lt;/h2&gt;
-
+&lt;h2 id=&quot;section-4&quot;&gt;各阶段计划&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;一周为单位&lt;/li&gt;
-&lt;li&gt;12月底完成 
-
-&lt;ul&gt;
-&lt;li&gt;KNN / NN/ SVM &lt;/li&gt;
-&lt;li&gt;回顾 大胡子的神经网络入门  /数学知识 高数 /线性代数/ 线性回归/牛顿方法/梯度下降算法/遗传算法的演示程序&lt;/li&gt;
-&lt;li&gt;人脸识别框架×××&lt;/li&gt;
-&lt;li&gt;开始scrapy采集各招聘网站，得到原始数据&lt;/li&gt;
-&lt;li&gt;hadoop框架+ 机器学习&lt;/li&gt;
-&lt;li&gt;继续学习机器学习剩下的算法&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+  &lt;li&gt;一周为单位&lt;/li&gt;
+  &lt;li&gt;12月底完成
+    &lt;ul&gt;
+      &lt;li&gt;回顾 大胡子的神经网络入门  /数学知识 高数 /线性代数/ 线性回归/牛顿方法/梯度下降算法/遗传算法的演示程序&lt;/li&gt;
+      &lt;li&gt;KNN/NN/SVM 卷积 手写识别&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2016 的三个月
+    &lt;ul&gt;
+      &lt;li&gt;人脸识别框架×××&lt;/li&gt;
+      &lt;li&gt;开始scrapy采集各招聘网站，得到原始数据&lt;/li&gt;
+      &lt;li&gt;hadoop框架+ 机器学习&lt;/li&gt;
+      &lt;li&gt;2月继续学习机器学习剩下的算法&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
+
 </description>
         <pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
-        <link>http://allamtb.github.io/machine/2015-12-17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</link>
-        <guid isPermaLink="true">http://allamtb.github.io/machine/2015-12-17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</guid>
+        <link>https://allamtb.github.io/blog//%E9%9A%8F%E6%83%B3/2015/12/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2.html</link>
+        <guid isPermaLink="true">https://allamtb.github.io/blog//%E9%9A%8F%E6%83%B3/2015/12/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2.html</guid>
         
         <category>机器学习</category>
         

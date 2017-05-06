@@ -13,7 +13,7 @@
 	<meta name="author" content="红林 毛凯 allamtb">
 	<meta name="copyright" content="毛凯,allamtb">
 	<meta name="keywords" content="红林的机器学习">
-	<meta name="description" content=" 红林的机器学习/深度学习/强化学习  ">
+	<meta name="description" content="准备数据在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。供后续识别模型取用。对比python机器学习库，选用框架      为什么用python？&gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 python（keep this under y...">
 	<!-- My Google Search Console -->
 	<meta name="google-site-verification" content="qcNatfyfm9XNpGn-RdTi78hl4nFoFRjfQeG91b-vWnY" />
 	<!-- baidu -->
@@ -29,13 +29,13 @@
 	<meta name="ba_track_id" content="3a12295eec4bd436a92e0b39d50f5b31">
 		
 	<link rel="shortcut icon" href="/img/favicon.ico">
-	<title>红林的机器学习 | allamtb Blog</title>
+	<title>一步步完成手写识别 - 红林的机器学习 | allamtb Blog</title>
 
 	<!-- Path to Framework7 Library CSS, Material Theme -->
 	<link rel="stylesheet" href="/css/framework7.material.custom.min.css">
 	<!-- Path to your custom web app styles-->
 	<link rel="stylesheet" href="/css/main.css">
-	<link rel="canonical" href="https://allamtb.github.io/blog//">
+	<link rel="canonical" href="https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html">
 	<link rel="alternate" type="application/rss+xml" title="红林的机器学习" href="https://allamtb.github.io/blog//feed.xml">
 	
 </head>
@@ -130,7 +130,7 @@
 <!-- But,But,But for SEO we need full layout -->
 
 <!-- Page, "data-page" contains page name -->
-<div data-page="index" class="page ">
+<div data-page="一步步完成手写识别" class="page post no-side-panel">
 	<!-- Top Navbar 请按照Framework7 material的navbar结构编写代码-->
 <nav class="navbar site-nav">
 	<div class="navbar-inner">
@@ -145,148 +145,184 @@
 			<a href="#" class="link icon-only open-panel menu-icon"><i class="icon icon-bars"></i></a>
 		</div>
 	</div>
-</nav>	
+</nav>
+	<!-- Speed Dial Wrap -->
+	<div class="speed-dial">
+		<!-- FAB inside will open Speed Dial actions -->
+		<a href="#" class="floating-button" style="background-color:#26a69a;background-color:#81C784;">
+			<!-- First icon is visible when Speed Dial actions are closed -->
+			<i class="icon icon-share"></i>
+			<!-- Second icon is visible when Speed Dial actions are opened -->
+			<i class="icon icon-close"></i>
+		</a>
+		<!-- Speed Dial Actions -->
+		<div class="speed-dial-buttons">
+			<!-- First Speed Dial button -->
+			<a class="external" href="http://service.weibo.com/share/share.php?url=https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html&title=一步步完成手写识别" title="Share to sina weibo" target="_blank" style="background-color: #EF5350;">
+				<i class="icon icon-sina"></i>
+			</a>
+			<!-- Second Speed Dial  button -->
+			<a class="external" href="http://www.facebook.com/share.php?u=https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html" title="Share to Facebook" target="_blank" style="background-color: #3B5998; ;">
+				<i class="icon icon-facebook"></i>
+			</a>
+			<!-- Third Speed Dial  button -->
+			<a class="external" href="http://twitter.com/intent/tweet?url=https://allamtb.github.io/blog//%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html&text=一步步完成手写识别" title="Share to Twitter" target="_blank" style="background-color: #2196F3;">
+				<i class="icon icon-twitter"></i>
+			</a>
+		</div>
+	</div>
+	<!-- End of Speed Dial -->
 	<!-- Scrollable page content -->
 	<div class="page-content hide-navbar-on-scroll">
 		<header class="site-header">
 	<div class="wrapper">
 		<div class="content-block">
-			
-			<h1 class="site-title">红林的机器学习</h1>
-			<p class="site-description">红林的机器学习/深度学习/强化学习</p>
+						
+			<h1 class="post-title">一步步完成手写识别</h1> 
+			<p class="post-meta">
+				 -- <time datetime="2016-01-07T00:00:00+08:00" itemprop="datePublished">Jan 7, 2016</time>
+				
+			</p>
+			<div class="tags">
+				
+				<a class="link chip" href="/tags/#手写识别">
+					<!--<div class="chip-media bg-blue">T</div>-->
+					<div class="chip-label">手写识别</div>
+				</a>
+				
+			</div>
 			
 		</div>
 	</div>
 </header>
 		<div class="wrapper">
-			<div class="main-panel">				
+			<div class="main-panel">
 				<div class="content-block">
-	<!--Post list-->
-	<ul class="post-list">
-		
-		<li class="card">
-			<div class="card-header">
-				<h2><a class="post-link" href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016/01/07/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html">一步步完成手写识别</a></h2>
-			</div>
-			<div class="card-content">
-				<div class="card-content-inner">
-					<p class="post-content-preview">准备数据
-在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。
-供后续识别模型取用。
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+						<!--
+						<header class="post-header">
+							<h1 class="post-title" itemprop="name headline">一步步完成手写识别</h1>
+							<p class="post-meta">
+								<time datetime="2016-01-07T00:00:00+08:00" itemprop="datePublished">Jan 7, 2016</time>
+							</p>
+						</header>
+						-->
+						<div class="post-content" itemprop="articleBody">
+							<h1 id="section">准备数据</h1>
+<p>在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。
+供后续识别模型取用。</p>
 
-对比python机器学习库，选用框架
+<h1 id="python">对比python机器学习库，选用框架</h1>
+
+<ul>
+  <li>
+    <p>为什么用python？
+&gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 <a href="https://docs.python.org/2/library/index.html">python</a>（keep this under your pillow)提供了免费的<a href="http://old.sebug.net/paper/books/scipydoc/matplotlib_intro.html">matplotlib</a> <a href="http://matplotlib.org/">官网</a>。
+&gt;- python 是解释性语言。无需编译，机器在执行前再解释。方便快速阅读源码、编写代码，并在控制台直接运行。
+&gt;- 语法优美、可读性高、列表推导,模块化编程、开发迅速。
+&gt;- 丰富的机器学习生态圈 <a href="http://old.sebug.net/paper/books/scipydoc/numpy_intro.html">numpy</a> <a href="http://old.sebug.net/paper/books/scipydoc/scipy_intro.html">Scipy</a>等。
+&gt;- cython python的C语言扩展。用于加速python某些算法的速度。
+&gt;- 求2的23次方？ python 2**23 即可，非常简洁。java 需要 调用Math.pow()</p>
+  </li>
+  <li>机器学习选用什么？
+&gt; scikit-learn  目前python最火的工具包。有525位贡献者，2W多次提交。 <a href="http://scikit-learn.org/stable/">scikit-learn</a>
+包括了各类无监督、监督学习算法。
+适合用于实践机器学习。</li>
+  <li>深度学习选用什么？
+&gt; keras 已封装好各种模型，上手容易。<a href="http://keras.io/">keras</a></li>
+  <li>符号运算选用什么？
+&gt; <a href="http://deeplearning.net/software/theano/tutorial/index.html#tutorial">Theano</a> 基于numpy 和scipy ，提供了先写公式，再传值的API。</li>
+</ul>
+
+<h1 id="knn">使用KNN来识别</h1>
+<blockquote>
+  <p>KNN 即 K-NearNeburher 的缩写，中文名为 K近邻算法。KNN算法是最简单、通俗的算法。也是不需要提前建模、训练的机器学习算法，
+有点临时抱佛脚的意思。
+KNN分类的原理为： 将所有已知的Samples(数据带标签)线性化，通过一一对比测试数据（有数据无标签）与各个Samples的距离（欧式距离、余弦距离）
+  得到K个最相似的Samples。最后在这K个Samples中以标签占比最多的为结果标签。
+在机器学习实践一书中，K的值小于20为最佳实践。</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>准备数据</p>
+
+    <p>将生成好的MNIST测试数据得到训练数据集、训练数据标签、测试数据集、测试数据标签。
+可以看到训练数据我们取的是9000个，测试数据我们取的是100个。</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>```python
+#打开mnist手写字符集。
+f = gzip.open('mnist.pkl.gz', 'rb')
+training_data, validation_data, test_data = cPickle.load(f)
+f.close()
+#获得训练数据
+data = training_data[0][0:9000]
+#获得训练结果
+training_result = training_data[1][0:9000]
+#获得用于测试的数据
+test = test_data[0][0:100]
+#获得用于测试的数据结果
+test_result = test_data[1][0:100]
+ ```
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>训练模型</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  ```python
+     n_neighbors = 5
+     knn = neighbors.KNeighborsClassifier(n_neighbors, weights='distance')
+     #训练
+     fit = knn.fit(data, training_result)
+  ```
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>使用测试数据来判断正确率</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  ```python
+  for x,y in zip(y_,test_result):
+      if(x!=y):
+          count+=1
+  print "{0}/{1}".format(count,len(y_))
+  ```
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h1 id="nn">使用NN来识别</h1>
+
+<h1 id="section-1">使用卷积神经网络识别</h1>
+
+<h1 id="svm">使用SVM识别</h1>
+
+<h1 id="pcasvd">使用PCA以及SVD算法来优化数据/提升效率。</h1>
+
+<h1 id="section-2">总结</h1>
 
 
-  
-    为什么用python？
-&gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 python（keep this under your pillow)提供了免费的matplotlib 官网。...</p>
+						</div>
+					</article>
+					<ul class="pager">
+						
+						<li class="previous">
+							<a class="link" href="/%E8%AF%AD%E8%A8%80/2015/12/25/python%E5%AD%A6%E4%B9%A0.html" title="python学习">&larr; Previous Post</a>
+						</li>
+						 
+					</ul>
 				</div>
-			</div>
-			<div class="card-footer"><span class="post-meta">Posted on Jan 7, 2016</span></div>
-		</li>
-		
-		<li class="card">
-			<div class="card-header">
-				<h2><a class="post-link" href="/%E8%AF%AD%E8%A8%80/2015/12/25/python%E5%AD%A6%E4%B9%A0.html">python学习</a></h2>
-			</div>
-			<div class="card-content">
-				<div class="card-content-inner">
-					<p class="post-content-preview">机器学习这么火热，python成了一门热门语言。同时，一般linux都内置了python 以及树莓派的兴起。python学习势在必行。
-
-方法
-
-
-  与java 横向比较。
-  以官网文档python为基础，列出常用的重点。
-
-
-基础
-
-python中的符号计算
-
-
-  
-    number/String/list 都可以用 + 号做计算
-
-    python
-      print ...</p>
-				</div>
-			</div>
-			<div class="card-footer"><span class="post-meta">Posted on Dec 25, 2015</span></div>
-		</li>
-		
-		<li class="card">
-			<div class="card-header">
-				<h2><a class="post-link" href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2015/12/20/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E6%88%90%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB.html">一步步完成手写识别</a></h2>
-			</div>
-			<div class="card-content">
-				<div class="card-content-inner">
-					<p class="post-content-preview">准备数据
-在Mnist获取用于手写识别的训练素材以及测试素材。将其生成为python格式的pkl文件。
-供后续识别模型取用。
-
-对比python机器学习库，选用框架
-
-
-  
-    为什么用python？
-&gt;- 学者专家推荐Matlab作为机器学习研究语言，但是其价格昂贵。 python（keep this under your pillow)提供了免费的matplotlib 官网。...</p>
-				</div>
-			</div>
-			<div class="card-footer"><span class="post-meta">Posted on Dec 20, 2015</span></div>
-		</li>
-		
-		<li class="card">
-			<div class="card-header">
-				<h2><a class="post-link" href="/%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html">gitHub 搭建博客小结</a></h2>
-			</div>
-			<div class="card-content">
-				<div class="card-content-inner">
-					<p class="post-content-preview">花了两天时间，采用ghpages搭建博客完成，
- 下面记录下搭建过程。
-
-github pages
-github pages 由github官网出品。方便广大程序员挂载博客而生。其内嵌了 Jekyll 模板引擎，可以将使用者提交的md文件自动生成为html并按照规范生成tag/目录等，使用者只需要关注博客内容，无需关注样式等。
-github pages 的文章托管于github。基于项目的远...</p>
-				</div>
-			</div>
-			<div class="card-footer"><span class="post-meta">Posted on Dec 19, 2015</span></div>
-		</li>
-		
-		<li class="card">
-			<div class="card-header">
-				<h2><a class="post-link" href="/%E9%9A%8F%E6%83%B3/2015/12/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2.html">我的第一篇博文</a></h2>
-			</div>
-			<div class="card-content">
-				<div class="card-content-inner">
-					<p class="post-content-preview">缘起
-断断续续的学习机器学习也已经一年半了。了解了Neural Network 以及购买了《Machine  Learning in Action》
-
-目标
-
-  将算法应用到实践中去，即学以致用。
-  麻衣神相与机器学习
-  挖掘网络资源整合与机器学习
-  航班计划应用
-
-
-不足
-
-
-  
-    数学基础差，新知识遗忘频率快。
-
-    
-      网易公开课的高数，线性代数有针对性的...</p>
-				</div>
-			</div>
-			<div class="card-footer"><span class="post-meta">Posted on Dec 17, 2015</span></div>
-		</li>
-		
-	</ul>
-	<!-- Pager -->
-	
-</div>				
+				<!-- disqus 评论框 start -->
+				
+				<!-- disqus 评论框 end -->
+				<!-- 多说分享 start -->
+				
+				<!-- 多说分享 end -->
+				<!-- 多说评论框 start -->
+				
+				<!-- 多说评论框 end -->
 			</div>
 			<div class="side-panel">
 				<!-- Featured Tags -->
