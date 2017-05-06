@@ -5,8 +5,8 @@
     <description>红林的机器学习/深度学习/强化学习</description>
     <link>https://allamtb.github.io/blog//</link>
     <atom:link href="https://allamtb.github.io/blog//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 06 May 2017 21:47:22 +0800</pubDate>
-    <lastBuildDate>Sat, 06 May 2017 21:47:22 +0800</lastBuildDate>
+    <pubDate>Sat, 06 May 2017 22:46:19 +0800</pubDate>
+    <lastBuildDate>Sat, 06 May 2017 22:46:19 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -328,6 +328,12 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;h2 id=&quot;section&quot;&gt;更换模板&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;发现心仪的博客风格，可以在其（github）源码中下载博客源码，然后对自己博客进行相应文件的替换。   我这里粗暴的使用全克隆的方式，把模板下载下来，替换掉-post文件夹中的内容即可。   需要修改的地方：1. _config.yml   2、 readme.md 3、 img文件中的 favicons.icon    在这里推荐一个在线获取网站 favicons 的地方：http://www.google.com/s2/favicons?domain= 待获取favicons网站地址
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h1 id=&quot;git&quot;&gt;git命令&lt;/h1&gt;
 
 &lt;h2 id=&quot;git-1&quot;&gt;常用git命令:&lt;/h2&gt;
@@ -360,19 +366,11 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 &lt;p&gt;2、将密钥在配置在github的账户配置中。&lt;br /&gt;
 3、 修改git remote set-url origin ssh地址。&lt;/p&gt;
 
-&lt;p&gt;参见URL  &lt;a href=&quot;blog.csdn.net/wfdtxz/article/details/8678982&quot;&gt;git之ssh密钥&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;参见URL  &lt;a href=&quot;http://blog.csdn.net/wfdtxz/article/details/8678982&quot;&gt;git之ssh密钥&lt;/a&gt;&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;扩展: ssh 密钥方式 dsa&lt;/td&gt;
-      &lt;td&gt;ecdsa&lt;/td&gt;
-      &lt;td&gt;ed25519&lt;/td&gt;
-      &lt;td&gt;rsa&lt;/td&gt;
-      &lt;td&gt;rsa1 的异同。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;扩展: ssh 密钥方式 dsa | ecdsa | ed25519 | rsa | rsa1 的异同。
+## 主动方都是给公钥，因为公钥私钥加密的信息可互解。 在这里只有github 以及 用户双方在使用，
+所以传公钥给github，用户将密码用私钥加密传送给github。&lt;/p&gt;
 
 &lt;h1 id=&quot;jekyll&quot;&gt;jekyll&lt;/h1&gt;
 

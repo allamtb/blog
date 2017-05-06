@@ -228,6 +228,12 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 </code></pre>
 </div>
 
+<h2 id="section">更换模板</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>发现心仪的博客风格，可以在其（github）源码中下载博客源码，然后对自己博客进行相应文件的替换。   我这里粗暴的使用全克隆的方式，把模板下载下来，替换掉-post文件夹中的内容即可。   需要修改的地方：1. _config.yml   2、 readme.md 3、 img文件中的 favicons.icon    在这里推荐一个在线获取网站 favicons 的地方：http://www.google.com/s2/favicons?domain= 待获取favicons网站地址
+</code></pre>
+</div>
+
 <h1 id="git">git命令</h1>
 
 <h2 id="git-1">常用git命令:</h2>
@@ -260,19 +266,11 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 <p>2、将密钥在配置在github的账户配置中。<br />
 3、 修改git remote set-url origin ssh地址。</p>
 
-<p>参见URL  <a href="blog.csdn.net/wfdtxz/article/details/8678982">git之ssh密钥</a></p>
+<p>参见URL  <a href="http://blog.csdn.net/wfdtxz/article/details/8678982">git之ssh密钥</a></p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>扩展: ssh 密钥方式 dsa</td>
-      <td>ecdsa</td>
-      <td>ed25519</td>
-      <td>rsa</td>
-      <td>rsa1 的异同。</td>
-    </tr>
-  </tbody>
-</table>
+<p>扩展: ssh 密钥方式 dsa | ecdsa | ed25519 | rsa | rsa1 的异同。
+## 主动方都是给公钥，因为公钥私钥加密的信息可互解。 在这里只有github 以及 用户双方在使用，
+所以传公钥给github，用户将密码用私钥加密传送给github。</p>
 
 <h1 id="jekyll">jekyll</h1>
 
