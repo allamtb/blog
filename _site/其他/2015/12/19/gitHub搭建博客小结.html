@@ -35,8 +35,8 @@
 	<link rel="stylesheet" href="/css/framework7.material.custom.min.css">
 	<!-- Path to your custom web app styles-->
 	<link rel="stylesheet" href="/css/main.css">
-	<link rel="canonical" href="https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html">
-	<link rel="alternate" type="application/rss+xml" title="红林的机器学习" href="https://allamtb.github.io/blog//feed.xml">
+	<link rel="canonical" href="http://localhost:4000/%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html">
+	<link rel="alternate" type="application/rss+xml" title="红林的机器学习" href="http://localhost:4000/feed.xml">
 	
 </head>
 
@@ -158,15 +158,15 @@
 		<!-- Speed Dial Actions -->
 		<div class="speed-dial-buttons">
 			<!-- First Speed Dial button -->
-			<a class="external" href="http://service.weibo.com/share/share.php?url=https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html&title=gitHub 搭建博客小结" title="Share to sina weibo" target="_blank" style="background-color: #EF5350;">
+			<a class="external" href="http://service.weibo.com/share/share.php?url=http://localhost:4000/%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html&title=gitHub 搭建博客小结" title="Share to sina weibo" target="_blank" style="background-color: #EF5350;">
 				<i class="icon icon-sina"></i>
 			</a>
 			<!-- Second Speed Dial  button -->
-			<a class="external" href="http://www.facebook.com/share.php?u=https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html" title="Share to Facebook" target="_blank" style="background-color: #3B5998; ;">
+			<a class="external" href="http://www.facebook.com/share.php?u=http://localhost:4000/%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html" title="Share to Facebook" target="_blank" style="background-color: #3B5998; ;">
 				<i class="icon icon-facebook"></i>
 			</a>
 			<!-- Third Speed Dial  button -->
-			<a class="external" href="http://twitter.com/intent/tweet?url=https://allamtb.github.io/blog//%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html&text=gitHub 搭建博客小结" title="Share to Twitter" target="_blank" style="background-color: #2196F3;">
+			<a class="external" href="http://twitter.com/intent/tweet?url=http://localhost:4000/%E5%85%B6%E4%BB%96/2015/12/19/gitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B0%8F%E7%BB%93.html&text=gitHub 搭建博客小结" title="Share to Twitter" target="_blank" style="background-color: #2196F3;">
 				<i class="icon icon-twitter"></i>
 			</a>
 		</div>
@@ -221,12 +221,10 @@
 							<p>花了两天时间，采用ghpages搭建博客完成，
  下面记录下搭建过程。</p>
 
-<h1 id="github-pages">github pages</h1>
-<div class="highlighter-rouge"><pre class="highlight"><code>github pages 由github官网出品。方便广大程序员挂载博客而生。其内嵌了 Jekyll 模板引擎，可以将使用者提交的md文件自动生成为html并按照规范生成tag/目录等，使用者只需要关注博客内容，无需关注样式等。
-github pages 的文章托管于github。基于项目的远程仓库名为gh-pages，即用户可以为每个项目masterd对应建一个gh-pages分支。我们的博客就采用gh-pages方式。
-另外一种方式基于用户主页的mater。
-</code></pre>
-</div>
+<p>#github pages
+	github pages 由github官网出品。方便广大程序员挂载博客而生。其内嵌了 Jekyll 模板引擎，可以将使用者提交的md文件自动生成为html并按照规范生成tag/目录等，使用者只需要关注博客内容，无需关注样式等。
+	github pages 的文章托管于github。基于项目的远程仓库名为gh-pages，即用户可以为每个项目masterd对应建一个gh-pages分支。我们的博客就采用gh-pages方式。
+	另外一种方式基于用户主页的mater。</p>
 
 <h2 id="section">更换模板</h2>
 
@@ -236,23 +234,21 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 
 <h1 id="git">git命令</h1>
 
-<h2 id="git-1">常用git命令:</h2>
-<ul>
-  <li>git add .</li>
-  <li>git commit -am ‘注释内容’</li>
-  <li>git push origin gh-pages</li>
-  <li>git clone</li>
-  <li>git status</li>
-</ul>
+<p>##常用git命令:
+- git add . 
+- git commit -am ‘注释内容’ 
+- git push origin gh-pages
+- git clone<br />
+- git status</p>
 
-<h2 id="git-2">git配置</h2>
+<h2 id="git-1">git配置</h2>
 
 <p>git 配置文件的存放，由近到远依次为（<code class="highlighter-rouge">相同配置，近者生效</code>）: <br />
 - 当前git仓库中.git的config文件 里面存放origin 对应的远**程仓库地址。
 - 当前用户home根目录的.gitconfig 文件 里面存放用户信息 email /name/提交方式等。你可以通过传递–global 选项使Git 读或写这个特定的文件。
 - /etc/gitconfig下面， 如果你传递参数选项’–system’ 给 git config，它将明确的读和写这个文件。</p>
 
-<h2 id="git-3">git远程链接</h2>
+<h2 id="git-2">git远程链接</h2>
 
 <p>git远程链接方式有两种: https 以及 ssh 方式</p>
 
@@ -277,16 +273,25 @@ github pages 的文章托管于github。基于项目的远程仓库名为gh-page
 <ul>
   <li>命令jekyll server默认端口为 4000</li>
   <li>yaml 头信息</li>
+  <li>如果本地jekyll server 渲染的md结果与github不一致，那么请升级jekyll
+    升级方式：
+    <ul>
+      <li>查看github使用的 jekylly版本 https://pages.github.com/versions/</li>
+      <li>使用root账户更新 gem  <code class="highlighter-rouge">gem update --system</code></li>
+      <li>更新jekyll  <code class="highlighter-rouge">gem update jekylly</code></li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="yaml">```yaml</h2>
-<p>layout : post
-title : gitHub 搭建博客小结
-tags : ghpages markdown jekyll
-categories : 其他
-—</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">layout</span> <span class="pi">:</span> <span class="s">post</span>
+<span class="s">title</span> <span class="pi">:</span> <span class="s">gitHub 搭建博客小结</span>
+<span class="s">tags</span> <span class="pi">:</span> <span class="s">ghpages markdown jekyll</span>
+<span class="s">categories</span> <span class="pi">:</span> <span class="s">其他</span>
+<span class="nn">---</span>
 
-<p>```</p>
+</code></pre>
+</div>
 
 <h1 id="markdown">markdown</h1>
 
