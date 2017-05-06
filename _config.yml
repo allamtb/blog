@@ -1,0 +1,45 @@
+permalink: /:year-:month-:day/:title/
+gems: [jekyll-paginate]
+highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions: [
+   "no_intra_emphasis"
+   ,"fenced_code_blocks"
+   ,"autolink"
+   ,"tables"
+   ,"strikethrough"
+   ,"superscript"
+   ,"with_toc_data"
+   ,"footnotes"
+   ,"highlight"
+   ,"underline"
+   ,"quote"
+   ,"lax_spacing"
+   ,"prettify"
+#   ,"html_toc"
+  ]
+
+
+paginate: 10
+paginate_path: ":num"
+baseurl: ""
+
+
+
+title: "机器学习"
+email: "85828524@qq.com"
+description: "Java老鸟的python机器学习之路"
+github_username:  "allamtb"
+swiftype_searchId: "4s925PM2rLWFSsezLERZ"
+disqus_shortname: "allamtb"
+
+
+
+url: "http://allamtb.github.io/machine"
+imgrepo: "http://allamtb.github.io/machine/static/img"
+#url:"127.0.0.1:4000"
+#imgrepo:"127.0.0.1:4000/static/img"
+
+
+

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>机器学习</title>
+    <description>Java老鸟的python机器学习之路</description>
+    <link>http://allamtb.github.io/machine/</link>
+    <atom:link href="http://allamtb.github.io/machine/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 18 Dec 2015 23:39:41 +0800</pubDate>
+    <lastBuildDate>Fri, 18 Dec 2015 23:39:41 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>我的第一篇博文</title>
+        <description>&lt;h2 id=&quot;缘起&quot;&gt;缘起&lt;/h2&gt;
+
+&lt;p&gt;断断续续的学习机器学习也已经一年半了。了解了Neural Network 以及购买了《Machine  Learning in Action》&lt;/p&gt;
+
+&lt;h2 id=&quot;目标&quot;&gt;目标&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将算法应用到实践中去，即&lt;code class=&quot;prettyprint&quot;&gt;学以致用&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;麻衣神相与机器学习&lt;/li&gt;
+&lt;li&gt;挖掘网络资源整合与机器学习&lt;/li&gt;
+&lt;li&gt;航班计划应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;不足&quot;&gt;不足&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;数学基础差，新知识遗忘频率快。
+&amp;gt;  网易公开课的高数，线性代数有针对性的学习。常用的理论、名词、公式等&lt;code class=&quot;prettyprint&quot;&gt;隔三差五回顾&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;时间不够用。
+&amp;gt; 谁的时间都不够用。童年时，时间不够游戏；年轻时时间不够旅游；  只要做好计划，&lt;code class=&quot;prettyprint&quot;&gt;步步为营&lt;/code&gt;（今天完成的事项是为了明天做参考和准备）
+终究能达到目标。&lt;/li&gt;
+&lt;li&gt;新技术日新月异，眼花缭乱  。没有静下心来潜心研究核心技术。
+&amp;gt; 应该有两条线： &lt;strong&gt;核心技术的深度挖掘 . 新技术的水平研究。就像人的左右手，缺一不可。&lt;/strong&gt;
+&amp;gt; 在JAVA领域, JDK/Spring/大数据是核心技术
+&amp;gt; 在机器学习领域，&lt;strong&gt;10大机器学习算法&lt;/strong&gt;+神经网络是核心。
+&amp;gt; 掌握了核心后，就应该横向的比较各个新技术的优缺点了。&lt;/li&gt;
+&lt;li&gt;学了就完了，没有真切到用在实践中。
+&amp;gt; 扪心自问，自己是想做学术研究还是生产实践？
+&amp;gt;回答必然是生产。
+&amp;gt;在机器学习领域，各种好的思想/理论，几十年前先辈们已经孜孜不倦研究出来并一直优化中了。
+&amp;gt;拿BP反向算法来讲，在1978年就已经提出来了。PCA、SVD等算法早在100年前已经提出并有了详细的实现逻辑。
+&amp;gt;各种算法/思想/改进层出不穷，自己没时间/精力去做一一学术研究。
+&amp;gt;故：&lt;strong&gt;不要受到某一算法的羁绊&lt;/strong&gt;，在某个局部耗费大量的时间。而应该的是，&lt;code class=&quot;prettyprint&quot;&gt;站在巨人们的肩膀上，横向比较、实践进而改进&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;策略&quot;&gt;策略&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;收复失地
+&amp;gt;  将自己一年半载以来学习做个终结，回顾，加深印象。&lt;/li&gt;
+&lt;li&gt;步步为营
+&amp;gt; 做好计划; 围绕最终目标行事。今天完成的事项是为了明天做参考和准备，这周做的事情是为了下周事项更好的推进。&lt;/li&gt;
+&lt;li&gt;前瞻思考
+&amp;gt; 多关注`最新动态  技术/公司/趋势&lt;/li&gt;
+&lt;li&gt;横向对比
+&amp;gt; 站在巨人们的肩膀上，横向比较、实践进而改进&lt;/li&gt;
+&lt;li&gt;实践为主
+&amp;gt;  做生产而非做学究。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;各阶段计划&quot;&gt;各阶段计划&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一周为单位&lt;/li&gt;
+&lt;li&gt;12月底完成 
+
+&lt;ul&gt;
+&lt;li&gt;KNN / NN/ SVM &lt;/li&gt;
+&lt;li&gt;回顾 大胡子的神经网络入门  /数学知识 高数 /线性代数/ 线性回归/牛顿方法/梯度下降算法/遗传算法的演示程序&lt;/li&gt;
+&lt;li&gt;人脸识别框架×××&lt;/li&gt;
+&lt;li&gt;开始scrapy采集各招聘网站，得到原始数据&lt;/li&gt;
+&lt;li&gt;hadoop框架+ 机器学习&lt;/li&gt;
+&lt;li&gt;继续学习机器学习剩下的算法&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 17 Dec 2015 00:00:00 +0800</pubDate>
+        <link>http://allamtb.github.io/machine/2015-12-17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</link>
+        <guid isPermaLink="true">http://allamtb.github.io/machine/2015-12-17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</guid>
+        
+        <category>机器学习</category>
+        
+        <category>计划</category>
+        
+        
+        <category>随想</category>
+        
+      </item>
+    
+  </channel>
+</rss>
